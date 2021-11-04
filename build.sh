@@ -9,7 +9,6 @@ fun_check()
 {
     # 1. 获取dockerfile中的tag
     tag=`sed -n '/tag=/p' $1/Dockerfile | awk -F '=' '{print $2}'`
-    echo $tag
 
     # 2. 比较dockerfile_tag 与 $2 是否一致, 不一致, 则更新dockerfile && yaml
     if [[ $tag == $2 ]]; then
