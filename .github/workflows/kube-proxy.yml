@@ -3,7 +3,7 @@ name: make
 on:
   push:
     tags:
-      - '*'
+      - 'kube-proxy*'
   
 jobs:
   push_to_registry: 
@@ -23,12 +23,12 @@ jobs:
         id: meta
         uses: docker/metadata-action@v3
         with:
-          images: clay2019/kube-apiserver
+          images: clay2019/kube-proxy
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v2
         with:
-          context: ./kube-apiserver
+          context: ./kube-proxy
           push: true
-          tags: ${{ steps.meta.outputs.tags }}
+          tags: 0 #auto-make
           labels: ${{ steps.meta.outputs.labels }}
