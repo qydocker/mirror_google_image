@@ -17,7 +17,7 @@ fun_check()
 
     sed -i "/tag=/ c\ARG tag=$2" $1/Dockerfile
     ## 根据'#auto-make'来查找
-    sed -i "/#auto-make/ c\          tags: $1:$2 #auto-make" .github/workflows/$1.yml
+    sed -i "/#auto-make/ c\          tags: clay2019/$1:$2 #auto-make" .github/workflows/$1.yml
     
     # 3. 添加新的tag = $1_$2, 触发github的workflow
     git commit -am "update $1:$2"
