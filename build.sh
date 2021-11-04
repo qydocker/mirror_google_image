@@ -22,8 +22,8 @@ fun_check()
     # 3. 添加新的tag = $1_$2, 触发github的workflow
     git commit -am "update $1:$2"
     git tag $1_$2
-    git push
-    git push --tags
+    git push -q 
+    git push -q --tags
 
     echo -e "push tag $1_$2"
 }
