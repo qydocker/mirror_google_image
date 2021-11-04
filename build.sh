@@ -32,10 +32,9 @@ fun_check()
 # ****************** main ******************
 ## kubeadm init need images
 fun_check  kube-apiserver             v1.22.3
-fun_check  kube-apiserver             v1.22.3
 fun_check  kube-controller-manager    v1.22.3
 fun_check  kube-proxy                 v1.22.3
 fun_check  kube-scheduler             v1.22.3
 fun_check  pause                      3.1
 fun_check  etcd                       3.3.10
-fun_check  coredbs                    1.3.1
+fun_check  coredns                    1.3.1
