@@ -31,5 +31,5 @@ jobs:
           context: ./coredns
           push: true
           # auto-make by build.sh
-          tags: 0 #auto-make
+          tags: clay2019/coredns:v1.8.4 #auto-make
           labels: ${{ steps.meta.outputs.labels }}
