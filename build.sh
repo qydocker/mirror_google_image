@@ -36,4 +36,4 @@ fun_check  kube-scheduler             v1.22.3
 fun_check  kube-proxy                 v1.22.3
 fun_check  pause                      3.5
 fun_check  etcd                       3.5.0-0
-fun_check  coredns                    v1.8.4
+#fun_check  coredns                    v1.8.4  #use docker.io/coredns/corendns
