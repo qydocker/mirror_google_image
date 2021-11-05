@@ -1,2 +1,2 @@
-ARG tag=1.3.1
+ARG tag=0
 FROM k8s.gcr.io/coredbs:$tag

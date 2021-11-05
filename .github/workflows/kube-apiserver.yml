@@ -30,5 +30,5 @@ jobs:
         with:
           context: ./kube-apiserver
           push: true
-          tags: v1.22.3 #auto-make
+          tags: clay2019/kube-apiserver:v1.22.3 #auto-make
           labels: ${{ steps.meta.outputs.labels }}
