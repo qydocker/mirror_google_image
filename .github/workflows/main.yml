@@ -3,7 +3,7 @@ name: make
 on:
   push:
     tags:
-      - 'prometheus-adapter*' #auto-on-tags
+      - 'kube-state-metrics*' #auto-on-tags
   
 jobs:
   push_to_registry: 
@@ -23,12 +23,12 @@ jobs:
         id: meta
         uses: docker/metadata-action@v3
         with:
-          images: clay2019/prometheus-adapter  #auto-images
+          images: clay2019/kube-state-metrics  #auto-images
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v2
         with:
-          context: ./prometheus-adapter #auto-context
+          context: ./kube-state-metrics #auto-context
           push: true
-          tags: clay2019/prometheus-adapter:v0.9.1 #auto-tags
+          tags: clay2019/kube-state-metrics:v2.2.3 #auto-tags
           labels: ${{ steps.meta.outputs.labels }}
