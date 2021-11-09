@@ -63,5 +63,5 @@ fun_mirror  k8s.gcr.io/etcd                                     3.5.0-0
 #fun_mirror  coredns                    v1.8.4  #use docker.io/coredns/corendns
 
 ## kube-prometheus
-fun_mirror  k8s.gcr.io/prometheus-adapter/prometheus-adapter    v0.9.1
-fun_mirror  k8s.gcr.io/kube-state-metrics/kube-state-metrics    v2.2.3
+fun_mirror  k8s.gcr.io/prometheus-adapter/prometheus-adapter    v0.9.0
+fun_mirror  k8s.gcr.io/kube-state-metrics/kube-state-metrics    v2.1.1
