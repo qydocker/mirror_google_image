@@ -44,10 +44,10 @@ fun_mirror()
 
     # 3. 添加新的tag = $trep_$tag, 触发github的workflow
     git add .
-    git commit -m "update $trep:$tag"
+    git commit -m "update $trep:$tag" > /dev/null
     git tag $trep_$tag
-    #git push -q 
-    #git push -q --tags
+    git push -q 
+    git push -q --tags
 
     echo -e "push tag $trep_$tag"
 }
