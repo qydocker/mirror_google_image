@@ -65,3 +65,7 @@ fun_mirror  k8s.gcr.io/etcd                                     3.5.0-0
 ## kube-prometheus
 fun_mirror  k8s.gcr.io/prometheus-adapter/prometheus-adapter    v0.9.0
 fun_mirror  k8s.gcr.io/kube-state-metrics/kube-state-metrics    v2.1.1
+
+## ingress-nginx
+fun_mirror  k8s.gcr.io/ingress-nginx/controller                 v1.0.4 
+fun_mirror  k8s.gcr.io/ingress-nginx/kube-webhook-certgen       v1.1.1

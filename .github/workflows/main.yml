@@ -3,7 +3,7 @@ name: make
 on:
   push:
     tags:
-      - 'kube-state-metrics*' #auto-on-tags
+      - 'controller*' #auto-on-tags
   
 jobs:
   push_to_registry: 
@@ -23,12 +23,12 @@ jobs:
         id: meta
         uses: docker/metadata-action@v3
         with:
-          images: clay2019/kube-state-metrics  #auto-images
+          images: clay2019/controller  #auto-images
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v2
         with:
-          context: ./kube-state-metrics #auto-context
+          context: ./controller #auto-context
           push: true
-          tags: clay2019/kube-state-metrics:v2.1.1 #auto-tags
+          tags: clay2019/controller:v1.0.4 #auto-tags
           labels: ${{ steps.meta.outputs.labels }}
