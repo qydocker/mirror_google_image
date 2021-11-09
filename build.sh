@@ -1,39 +1,63 @@
 #!/bin/bash
 
 ## 说明
-# 借用github的wokrflow, 下载google的镜像文件到dockerhub
+# 借用github的wokrflow, 下载google的镜像文件到docker.io/clay. 
+# 仓库名字与gogole镜像的相同
 
 step=1
 # ****************** fun ******************
-fun_check()
+fun_mirror()
 {
-    # 1. 获取dockerfile中的tag
-    tag=`sed -n '/tag=/p' $1/Dockerfile | awk -F '=' '{print $2}'`
+    # $1为源仓库, $2为tag
+    srep=$1
+    trep=${srep##*/}
+    tag=$2
 
-    # 2. 比较dockerfile_tag 与 $2 是否一致, 不一致, 则更新dockerfile && yaml
-    if [[ $tag == $2 ]]; then
+    # 1. 判断文件是否存在
+    if ! [ -f $trep/Dockerfile ]; then
+	mkdir -p $trep
+	echo -e "ARG tag=0"               >  $trep/Dockerfile
+	echo -e "ARG srep=$srep"          >> $trep/Dockerfile
+	echo -e 'FROM $srep:$tag'         >> $trep/Dockerfile
+    fi
+    
+    # 1. 获取dockerfile中的tag
+    ftag=`sed -n '/tag=/p' $trep/Dockerfile | awk -F '=' '{print $2}'`
+
+    # 2. 比较dockerfile_tag 与 $tag 是否一致, 不一致, 则更新dockerfile && yaml
+    if [[ $tag == $ftag ]]; then
 	return 0
     fi
 
-    sed -i "/tag=/ c\ARG tag=$2" $1/Dockerfile
-    ## 根据'#auto-make'来查找
-    sed -i "/#auto-make/ c\          tags: clay2019/$1:$2 #auto-make" .github/workflows/$1.yml
-    
-    # 3. 添加新的tag = $1_$2, 触发github的workflow
-    git commit -am "update $1:$2"
-    git tag $1_$2
-    git push -q 
-    git push -q --tags
+    sed -i "/tag=/ c\ARG tag=$tag" $trep/Dockerfile
 
-    echo -e "push tag $1_$2"
+    ## 根据'#auto-'来查找
+    yml=.github/workflows/main.yml
+    sed -i "/#auto-on-tags/ c\      - '$trep*' #auto-on-tags"                $yml
+    sed -i "/#auto-images/ c\          images: clay2019/$trep  #auto-images" $yml
+    sed -i "/#auto-context/ c\          context: ./$trep #auto-context"      $yml
+    sed -i "/#auto-tags/ c\          tags: clay2019/$trep:$tag #auto-tags"   $yml
+
+    # 3. 添加新的tag = $trep_$tag, 触发github的workflow
+    git add .
+    git commit -m "update $trep:$tag"
+    git tag $trep_$tag
+    #git push -q 
+    #git push -q --tags
+
+    echo -e "push tag $trep_$tag"
 }
 
 # ****************** main ******************
 ## kubeadm init need images
-fun_check  kube-apiserver             v1.22.3
-fun_check  kube-controller-manager    v1.22.3
-fun_check  kube-scheduler             v1.22.3
-fun_check  kube-proxy                 v1.22.3
-fun_check  pause                      3.5
-fun_check  etcd                       3.5.0-0
-#fun_check  coredns                    v1.8.4  #use docker.io/coredns/corendns
+fun_mirror  k8s.gcr.io/kube-apiserver                           v1.22.3
+fun_mirror  k8s.gcr.io/kube-controller-manager                  v1.22.3
+fun_mirror  k8s.gcr.io/kube-scheduler                           v1.22.3
+fun_mirror  k8s.gcr.io/kube-proxy                               v1.22.3
+fun_mirror  k8s.gcr.io/pause                                    3.5
+fun_mirror  k8s.gcr.io/etcd                                     3.5.0-0
+#fun_mirror  coredns                    v1.8.4  #use docker.io/coredns/corendns
+
+## kube-prometheus
+fun_mirror  k8s.gcr.io/prometheus-adapter/prometheus-adapter    v0.9.1
+fun_mirror  k8s.gcr.io/kube-state-metrics/kube-state-metrics    v2.2.3
