@@ -4,6 +4,10 @@
 # 借用github的wokrflow, 下载google的镜像文件到docker.io/clay. 
 # 仓库名字与gogole镜像的相同
 
+## 使用说明
+# 需要mirror到docker.io的镜像, 只需要调用fun_mirror即可
+# 不需要操作Dockerfile 或者main.yml
+
 step=1
 # ****************** fun ******************
 fun_mirror()
