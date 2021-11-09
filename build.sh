@@ -3,6 +3,7 @@
 ## 说明
 # 借用github的wokrflow, 下载google的镜像文件到docker.io/clay. 
 # 仓库名字与gogole镜像的相同
+# 不需要手动在dockerhub中创建repository, 如果不存在, 会自动在dockerhub中创建rep
 
 ## 使用说明
 # 需要mirror到docker.io的镜像, 只需要调用fun_mirror即可
