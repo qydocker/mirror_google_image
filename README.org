@@ -1,2 +1,5 @@
-
 使用github action, 下载google镜像到dockerhub
+
+使用方法:
+1. 在build.sh中添加需要的镜像
+2. ./build.sh
